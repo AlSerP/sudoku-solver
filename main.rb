@@ -1,23 +1,29 @@
 require_relative 'sudoku'
 require_relative 'solver'
 
-# def set_up(sudoku)
-#   sudoku = Sudoku.new
-#   9.times do |y|
-#     gets.chop.split(' ').each_with_index do |value, x|
-#       sudoku[x, y] = value.to_i unless value == '-'
-#     end
-#   end
-# end
+TYPE_TO_CLASS = {
+  'base' => Sudoku::Base,
+  'diagonal' => Sudoku::Diagonal
+}
 
-# if solve(sudoku)
-#   puts sudoku
-# else
-#   puts "unsolvable"
-# end
+def load(type = 'base')
+  data = File.open("src/#{type}.json").read
+  TYPE_TO_CLASS[type].from_json(data)
+end
 
-data = File.open('src/base.json').read
-sudoku = Sudoku::Base.from_json(data)
-puts sudoku
-puts '----'
-puts Solver.solve(sudoku)
+def bm_solve(sudoku)
+  puts sudoku
+  puts '======='
+
+  t_start = Time.now
+  puts "Start at #{t_start}"
+
+  res = Solver.solve(sudoku)
+  t_end = Time.now
+
+  puts res || 'Unsolveable'
+  puts "Time #{t_end - t_start}s"
+end
+
+bm_solve(load('base'))
+bm_solve(load('diagonal'))
