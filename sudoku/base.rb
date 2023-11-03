@@ -79,13 +79,14 @@ module Sudoku
 
     def self.from_json(json)
       # Создание судоку из json
-      arr = JSON.parse json
+      data = JSON.parse json
+      board = data['board']
 
       sudoku = self.new
 
       9.times do |y|
         9.times do |x|
-          sudoku[x, y] = arr[y][x]
+          sudoku[x, y] = board[y][x]
         end
       end
 

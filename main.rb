@@ -4,7 +4,8 @@ require_relative 'solver'
 TYPE_TO_CLASS = {
   'base' => Sudoku::Base,
   'diagonal' => Sudoku::Diagonal,
-  'asterisk' => Sudoku::Asterisk
+  'asterisk' => Sudoku::Asterisk,
+  'odd_even' => Sudoku::OddEven
 }
 
 def load(type = 'base')
@@ -29,5 +30,6 @@ def bm_solve(sudoku)
 end
 
 bm_solve(load('base'))
-bm_solve(load('diagonal'))
-bm_solve(load('asterisk'))
+# bm_solve(load('diagonal'))
+# bm_solve(load('asterisk'))
+# bm_solve(load('odd_even'))
